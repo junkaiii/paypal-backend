@@ -85,7 +85,7 @@ function generateCaptureConfig(orderId, token) {
 async function createOrder(value) {
   try {
     token = await generateAccessToken();
-    response = await axios(generateCreateOrderConfig("0.01", token));
+    response = await axios(generateCreateOrderConfig(value, token));
     order = await response["data"];
     return order;
   } catch (error) {
