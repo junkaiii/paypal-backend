@@ -106,6 +106,10 @@ async function captureOrder(orderId) {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
 app.post("/api/create-payment", async function (req, res) {
   amount = req.body.amount;
   try {
