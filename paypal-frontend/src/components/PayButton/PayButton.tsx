@@ -13,19 +13,20 @@ interface PayButtonProps {
 
 interface PayButtonState {
   paid: boolean;
+  email: string;
 }
 
 export default class PayButton extends Component<
   PayButtonProps,
   PayButtonState
 > {
-  readonly state = { paid: false };
+  readonly state = { paid: false, email: "" };
 
   renderPayButton = (state: PayButtonState) => {
     console.log(this.state);
 
-    let toggleState = () => {
-      this.setState({ paid: true });
+    let toggleState = (email: string) => {
+      this.setState({ paid: true, email });
     };
 
     let createOrder = () => {
@@ -61,11 +62,7 @@ export default class PayButton extends Component<
           }
         )
         .then(function (response: any) {
-          alert(
-            "Your payment is confirmed. An email will be sent to: " +
-              response.data.payer.email_address
-          );
-          toggleState();
+          toggleState(response.data.payer.email_address);
           return response;
         })
         .catch(function (error: any) {
@@ -76,18 +73,27 @@ export default class PayButton extends Component<
     if (this.state.paid) {
       return (
         <Row className="show-grid">
-          <h3>Thank You!</h3>
+          <Col></Col>
+          <Col xs={6}>
+            <h3>Thank You!</h3>
+            <p>A confirmation email has been sent to: {this.state.email}</p>
+          </Col>
+          <Col></Col>
         </Row>
       );
     } else {
       return (
         <Row className="show-grid">
-          <PayPalButton
-            // Consolidate URLS to ENUM for easy changing
-            // Create interfaces for react-paypal-button-v2
-            createOrder={createOrder}
-            onApprove={onApprove}
-          ></PayPalButton>
+          <Col></Col>
+          <Col>
+            <PayPalButton
+              // Consolidate URLS to ENUM for easy changing
+              // Create interfaces for react-paypal-button-v2
+              createOrder={createOrder}
+              onApprove={onApprove}
+            ></PayPalButton>
+          </Col>
+          <Col></Col>
         </Row>
       );
     }

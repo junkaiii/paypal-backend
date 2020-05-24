@@ -93,6 +93,8 @@ export default class Subtotal extends Component<SubtotalProps> {
           </Col>
           <Col md={6}>{`$${this.state.subtotal}`}</Col>
         </Row>
+        <br></br>
+        <br></br>
         <PayButton amount={this.state.subtotal}></PayButton>
       </div>
     );
