@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import { PayPalButton } from "react-paypal-button-v2";
 import ItemDetails from "../ItemDetails/ItemDetails";
+import PayButton from "../PayButton/PayButton";
 
 const axios = require("axios").default;
 const qs = require("querystring");
@@ -21,8 +21,6 @@ interface Item {
   quantity: number;
   sku: string;
 }
-
-const backend = "/api"; //  TODO: Move to environment variables
 
 // Temporary test items. To be passed as props from parent component or fetched from backend
 
@@ -95,50 +93,7 @@ export default class Subtotal extends Component<SubtotalProps> {
           </Col>
           <Col md={6}>{`$${this.state.subtotal}`}</Col>
         </Row>
-        <Row className="show-grid">
-          <PayPalButton
-            // Consolidate URLS to ENUM for easy changing
-            // Create interfaces for react-paypal-button-v2
-            createOrder={() => {
-              return axios
-                .post(
-                  backend + "/create-payment",
-                  qs.stringify({
-                    amount: this.state.subtotal,
-                  }),
-                  {
-                    headers: {
-                      "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                  }
-                )
-                .then(function (response: any) {
-                  return response.data.id;
-                })
-                .catch(function (error: any) {
-                  console.log(error);
-                });
-            }}
-            onApprove={(data: any) => {
-              return axios
-                .post(
-                  backend + "/capture-payment",
-                  qs.stringify({ order_id: data.orderID }),
-                  {
-                    headers: {
-                      "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                  }
-                )
-                .then(function (response: any) {
-                  console.log(response);
-                })
-                .catch(function (error: any) {
-                  console.log(error);
-                });
-            }}
-          ></PayPalButton>
-        </Row>
+        <PayButton amount={this.state.subtotal}></PayButton>
       </div>
     );
   };
