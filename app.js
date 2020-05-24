@@ -1,13 +1,14 @@
 const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: ".env" });
 }
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 const CLIENT = process.env.CLIENT;
 const SECRET = process.env.SECRET;
@@ -110,7 +111,7 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
-app.post("/api/create-payment", async function (req, res) {
+app.post("/api/create-payment", cors(), async function (req, res) {
   amount = req.body.amount;
   try {
     order = await createOrder(amount);
@@ -122,7 +123,7 @@ app.post("/api/create-payment", async function (req, res) {
   }
 });
 
-app.post("/api/capture-payment", async function (req, res) {
+app.post("/api/capture-payment", cors(), async function (req, res) {
   orderId = req.body.order_id;
   try {
     order = await captureOrder(orderId);
