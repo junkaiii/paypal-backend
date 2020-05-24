@@ -2,6 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: ".env" });
@@ -107,8 +108,13 @@ async function captureOrder(orderId) {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("hello");
+app.get("/health", (req, res) => {
+  res.send("OK!");
+});
+
+app.use(express.static(path.join(__dirname, "paypal-frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/static/index.html"));
 });
 
 app.post("/api/create-payment", cors(), async function (req, res) {
