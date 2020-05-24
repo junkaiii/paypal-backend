@@ -22,7 +22,7 @@ interface Item {
   sku: string;
 }
 
-const backend = "http://localhost:3000/api"; //  TODO: Move to environment variables
+const backend = "/api"; //  TODO: Move to environment variables
 
 // Temporary test items. To be passed as props from parent component or fetched from backend
 
