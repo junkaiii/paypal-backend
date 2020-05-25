@@ -5,14 +5,24 @@ Button with a backend of my choice. I decided on using Node for the backend and 
 
 This was a pretty fun excercise as it tests several concepts such as:
 
- - Handling promises, async/await
- - Deploying monolith repo with multiple apps using proxies
- - React component lifecycle: 
-1) Pass props to component
-2) Mash props with initialState to set current state
-3) OnEvent handlers to trigger functions to re-render UI through setState()
-4) Passing variables from child to parent component through function passed through props from       		 parent to child
- - And of course, learning to integrate the PayPal API. The most basic is to create an order, approve, then capture payment.  
+- Handling promises, async/await
+- Deploying monolith repo with multiple apps using proxies
+- React component lifecycle:
+
+1. Pass props to component
+2. Mash props with initialState to set current state
+3. OnEvent handlers to trigger functions to re-render UI through setState()
+4. Passing variables from child to parent component through function passed through props from parent to child
+
+- And of course, learning to integrate the PayPal API. The most basic is to create an order, approve, then capture payment.
+
+Given a chance to do this excercise again, I would do the following improvements:
+
+- Integrate a DB in the backend to record payments
+- Better layout in UI
+- Some animations while waiting for requests
+- Better error handling. Push meaningful and actionable error messages to the user.
+- Secure the backend with CSRF token
 
 ![ezgif-6-f2a68fb8f75e.gif](https://s7.gifyu.com/images/ezgif-6-f2a68fb8f75e.gif)
 
